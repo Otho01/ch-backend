@@ -30,7 +30,7 @@ const userSchema = new Schema({
   products: { 
     type: [{
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'Product'
     }]
   },
   name: {

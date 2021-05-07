@@ -1,10 +1,17 @@
-const { Transaction } = require('../models/transaction.model')
+const Transaction  = require('../models/transaction.model')
 
 module.exports = {
-  async buySell(req, res) {
+  async createTransaction(req, res) {
     try {
-      const { product, price, date, type } = req.body
-      const transaction = await Transaction.create({ product, })
+      const { body, user: { userId } } = req
+      const transaction = await Transaction.create(body)
+      transaction.userId = userId
+      await transaction.save({ validateBeforeSave: false })
+      const user = await User.findByIdAndUpdate(userId, {$push: { transactions: transaction._id }}, {new: true})
+
+      res.status(201).json({ message: 'Transacción exitosa!', transaction })
+    } catch(error) {
+      res.status(400).json({ message: 'Transacción fallida, intente de nuevo', error})
     }
-  }
+  },
 }
