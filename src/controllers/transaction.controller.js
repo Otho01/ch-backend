@@ -6,7 +6,6 @@ module.exports = {
       const { body, user: { userId } } = req
       const transaction = await Transaction.create(body)
       transaction.userId = userId
-      await transaction.save({ validateBeforeSave: false })
       const user = await User.findByIdAndUpdate(userId, {$push: { transactions: transaction._id }}, {new: true})
 
       res.status(201).json({ message: 'Transacción exitosa!', transaction })

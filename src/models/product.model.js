@@ -9,11 +9,11 @@ const productSchema = new Schema({
     type: Boolean,
     required: true,
   },
-  Name: {
+  name: {
     type: String,
     required: true,
   },
-  ProductPictures: { 
+  productPictures: { 
     type: [{
       type: String,
       required: true,
@@ -23,7 +23,7 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
-  user: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,

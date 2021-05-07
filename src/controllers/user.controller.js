@@ -16,7 +16,7 @@ module.exports = {
         process.env.SECRET,
         { expiresIn: 60 * 60 }
       )
-      res.status(201).json({ user, token })
+      res.status(201).json({ email, name, token })
     } catch(error){
       res.status(400).json({ error })
     }
@@ -45,4 +45,31 @@ module.exports = {
       res.status(400).json(`No se puede actualizar el usuario ${error}`)
     }
   },
+  async signIn(req, res) {
+    try {
+      const { email, password } = req.body
+      const user = await User.findOne({email})
+      
+      if(!user){
+        throw Error('Usuario o contraseña Inválida')
+      }
+      
+      const isValid = await bcrypt.compare(password, user.password)
+
+      if(!isValid){
+        throw Error('Usuario o contraseña inválido')
+      }
+
+      const token = jwt.sign(
+        {
+          userId: user._id,
+        },
+        process.env.SECRET,
+        {expiresIn: 60 * 60}
+      )
+      res.status(201).json({token})
+    }catch(error) {
+      res.status(401).json({ message: error.mesasge })
+    }
+  }
 }
