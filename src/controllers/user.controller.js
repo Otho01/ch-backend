@@ -1,4 +1,4 @@
-
+const bcrypt = require('bcrypt')
 const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 
@@ -19,6 +19,7 @@ module.exports = {
       res.status(201).json({ email, name, token })
     } catch(error){
       res.status(400).json({ error })
+      console.log(error)
     }
   },
 
@@ -70,6 +71,7 @@ module.exports = {
       res.status(201).json({token})
     }catch(error) {
       res.status(401).json({ message: error.mesasge })
+      console.log(error)
     }
   }
 }

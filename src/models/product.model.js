@@ -7,7 +7,6 @@ const productSchema = new Schema({
   },
   inStock: {
     type: Boolean,
-    required: true,
   },
   name: {
     type: String,
@@ -28,10 +27,14 @@ const productSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+  },
 }, 
 {
   timestamps: true,
-})
+},)
 
 const Product = model('Product', productSchema)
 

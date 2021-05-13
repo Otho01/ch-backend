@@ -6,7 +6,7 @@ const transactionSchema = new Schema({
     required: true,
   },
   result: {
-    type: Boolean,
+    type: String,
     required: true,
   },
   date:{
