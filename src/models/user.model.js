@@ -37,6 +37,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  nationalId: {
+    type: String,
+  },
   transactions: { 
     type: [{
       type: Schema.Types.ObjectId,
