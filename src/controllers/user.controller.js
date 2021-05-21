@@ -38,12 +38,24 @@ module.exports = {
     try {
       const {body, params: {userId}} = req
       
-      const user = await User.findByIdAndUpdate(userId, body, {new:true})
+      const user = await User.findByIdAndUpdate(userId, body, {new:true}).select('-password')
       await user.save({ validateBeforeSave: false })
 
       res.status(201).json(user)
+      console.log(user)
     }catch(error) {
       res.status(400).json(`No se puede actualizar el usuario ${error}`)
+      console.log(error)
+    }
+  },
+  async getUser(req, res) { 
+    try {
+      const { user: { userId }} = req
+      const user = await User.findById(userId)
+
+      res.status(201).json({message: 'Cliente cargado con exito', user})
+    } catch(error) {
+      res.status(400).json({message: 'No se pudo obtener información del ciente', error})
     }
   },
   async signIn(req, res) {
@@ -68,7 +80,8 @@ module.exports = {
         process.env.SECRET,
         {expiresIn: 60 * 60}
       )
-      res.status(201).json({token})
+      const userId = user._id
+      res.status(201).json({token, userId})
     }catch(error) {
       res.status(401).json({ message: error.mesasge })
       console.log(error)

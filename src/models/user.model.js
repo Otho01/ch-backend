@@ -37,8 +37,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  nationalId: {
+  nationalid: {
     type: String,
+    unique: true,
   },
   transactions: { 
     type: [{
