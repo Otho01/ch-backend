@@ -16,7 +16,8 @@ module.exports = {
         process.env.SECRET,
         { expiresIn: 60 * 60 }
       )
-      res.status(201).json({ email, name, token })
+      const usrId = user._id
+      res.status(201).json({ email, name, token, usrId})
     } catch(error){
       res.status(400).json({ error })
       console.log(error)
