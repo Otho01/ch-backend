@@ -1,7 +1,7 @@
 const { model, models, Schema } = require('mongoose')
 
 const transactionSchema = new Schema({
-  cost: {
+  amountPaid: {
     type: Number,
     required: true,
   },
@@ -9,13 +9,13 @@ const transactionSchema = new Schema({
     type: String,
     required: true,
   },
-  date:{
+  transactionDate:{
     type: Date,
     required: true,
   },
   type: {
     type: String,
-    required: true,
+    
   },
   user: {
     type: Schema.Types.ObjectId,
@@ -27,6 +27,10 @@ const transactionSchema = new Schema({
       ref: 'Product',
     }]
   },
+  paymentReference: {
+    type: Number,
+    required: true,
+  }
 },
   {
     timestamps: true,

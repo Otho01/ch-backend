@@ -5,7 +5,7 @@ const { list } = require('./user.controller')
 module.exports = {
   async createCategory(req, res) {
     try {
-      const {body, product: {productId}} = req
+      const { body, product: { productId } } = req
       
       const category = await Category.create(body)
       category.productId = productId
